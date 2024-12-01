@@ -1,11 +1,11 @@
-const express = require('express');
+const express = require("express");
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
+const axios = require('axios'); // Add this at the top of your server.js
 
 const app = express();
 const Schema = mongoose.Schema;
-
 
 // Default route for login
 app.get("/", (req, res) => {
@@ -16,18 +16,71 @@ app.get("/home", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// I was spliting my files into diffrent directory, everything worked fine locally. However, 
-// when I deployed to Heroku, my server app always crash. Took my several hours to debug, I 
-// found out that I have to put the schema files and server connections in the same Javascript
-// file, otherwise it does not work not Heroku. The reason still remains unknown for now, but 
-// the best solution I can provide is to put schema and routes into this server main file. 
+app.get("/recommendations", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "recommendations.html"));
+});
+// app.get("/api/recommendations", async (req, res) => {
+//   const workoutType = req.query.type;
 
-// Originally, 
-// schema should be stored in ./models/workout.js
-// api handlers should be stored in ./routes/api-routes.js
-// html handlers should be stored in ./routes/html-routes.js
+//   if (!workoutType) {
+//     return res.status(400).json({ error: "Workout type is required." });
+//   }
 
-// I will convert the directory structure into best practice once I figure out the reason behind the crashes on Heroku.
+//   try {
+//     //const apiKey = "0b0c4e914dmsh94f472d71144f9fp1948a2jsn8cc11b6c31c8"; 
+//     const apiUrl = `https://api.api-ninjas.com/v1/exercises?muscle=${bodyPart}`
+//     //const apiUrl = `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${encodeURIComponent(workoutType)}`;
+//     const apiKey = "tLa9YBv+1JiAYFNk/1nRoA==SNnG08vHKj3WfT07"
+//     const response = await axios.get(apiUrl, {
+//       headers: {
+//         "X-RapidAPI-Key": apiKey,
+//         "X-RapidAPI-Host": "exercisedb.p.rapidapi.com"
+//       }
+//     });
+
+//     const exercises = response.data;
+//     const recommendations = exercises.map(exercise => ({
+//       name: exercise.name,
+//       type: exercise.type,
+//       difficulty: exercise.difficulty,
+//     }));
+
+//     res.json(recommendations);
+//   } catch (error) {
+//     res.status(500).json({ error: "Unable to fetch recommendations at this time." });
+//   }
+// });
+app.get("/api/recommendations", async (req, res) => {
+  const bodyPart = req.query.type;
+
+  if (!bodyPart) {
+    return res.status(400).json({ error: "Body part is required." });
+  }
+
+  try {
+    const apiUrl = `https://api.api-ninjas.com/v1/exercises?muscle=${bodyPart}`;
+    const apiKey = "tLa9YBv+1JiAYFNk/1nRoA==SNnG08vHKj3WfT07";
+    const response = await axios.get(apiUrl, {
+      headers: { "X-Api-Key": apiKey }
+    });
+
+    const exercises = response.data;
+
+    const recommendations = exercises.map(exercise => ({
+      name: exercise.name,
+      type: exercise.type,
+      difficulty: exercise.difficulty,
+      equipment: exercise.equipment || 'None',
+      instructions: exercise.instructions || 'No instructions available'
+    }));
+
+    res.json(recommendations);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Unable to fetch recommendations at this time." });
+  }
+});
 
 // MongoDB schema starts here =============================
 const WorkoutSchema = new Schema({

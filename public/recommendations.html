@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="style.css" />
+  <title>Workout Recommendations</title>
+</head>
+<body>
+  <nav>
+    <a href="/">Fitness Tracker</a>
+    <a href="/stats">Dashboard</a>
+    <a href="/recommendations">Recommendations</a> 
+  </nav>
+
+  <div class="ui container">
+    <h1>Get Workout Recommendations</h1>
+    <div class="ui input">
+      <input type="text" id="workoutType" placeholder="Enter a workout type (e.g., chest)" />
+    </div>
+    <button id="fetchRecommendations" class="ui blue button">Get Recommendations</button>
+    
+    <h3>Recommended Workouts:</h3>
+    <ul id="recommendationsList">
+    </ul>
+  </div>
+
+  <script src="recommendations.js"></script>
+</body>
+</html>
