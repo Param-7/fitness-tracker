@@ -2,16 +2,16 @@ const express = require("express");
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
-const axios = require('axios'); // Add this at the top of your server.js
+const axios = require('axios');
 
 const app = express();
 const Schema = mongoose.Schema;
 
-// Default route for login
+
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "login.html"));
 });
-// Route for other pages if needed
+
 app.get("/home", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
