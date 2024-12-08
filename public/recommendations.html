@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Workout Recommendations</title>
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+  />
 </head>
 <body>
-  <nav>
-    <a href="/">Fitness Tracker</a>
-    <a href="/stats">Dashboard</a>
-    <a href="/recommendations">Recommendations</a> 
+  <nav class="ui menu">
+    <a href="/" class="item">Fitness Tracker</a>
+    <a href="/stats" class="item">Dashboard</a>
+    <a href="/recommendations" class="item active">Recommendations</a> 
   </nav>
 
   <div class="ui container">
-    <h1>Get Workout Recommendations</h1>
+    <h1 class="ui center aligned header">Get Workout Recommendations</h1>
+
     <div class="ui input">
       <input type="text" id="workoutType" placeholder="Enter a workout type (e.g., chest)" />
     </div>
     <button id="fetchRecommendations" class="ui blue button">Get Recommendations</button>
-    
-    <h3>Recommended Workouts:</h3>
-    <ul id="recommendationsList">
+
+    <h3 class="ui header">Recommended Workouts:</h3>
+    <ul id="recommendationsList" class="ui list">
     </ul>
   </div>
 

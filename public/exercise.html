@@ -11,67 +11,71 @@
 </head>
 
 <body>
-  <nav>
-    <a href="/">Fitness Tracker</a>
-    <a href="/stats">Dashboard</a>
+  <nav class="ui menu">
+    <a href="/" class="item">Fitness Tracker</a>
+    <a href="/stats" class="item">Dashboard</a>
   </nav>
+
   <div class="wrapper">
-    <header>
-      <h1>Fitness Tracker</h1>
+    <header class="ui container">
+      <h1 class="ui center aligned header">Fitness Tracker</h1>
     </header>
     <div class="ui container exercise">
       <div class="ui raised card m-auto">
-        <h2>Add Your Exercise</h2>
+        <h2 class="ui header">Add Your Exercise</h2>
         <form action="POST">
           <div class="workout-type">
             <label for="type">Exercise Type:</label>
-            <select name="type" id="type">
+            <select name="type" id="type" class="ui dropdown">
               <option disabled selected>Select Exercise Type</option>
               <option value="resistance">Resistance</option>
               <option value="cardio">Cardio</option>
             </select>
           </div>
+
           <div class="cardio-form d-none">
             <div class="cardio-name">
               <label for="cardio-name">Name:</label>
-              <input type="text" name="cardio-name" id="cardio-name" placeholder="Running" />
+              <input type="text" name="cardio-name" id="cardio-name" class="ui input" placeholder="Running" />
             </div>
             <div class="distance">
               <label for="distance">Distance (miles):</label>
-              <input type="number" name="distance" id="distance" placeholder="5" />
+              <input type="number" name="distance" id="distance" class="ui input" placeholder="5" />
             </div>
             <div class="duration">
               <label for="duration">Duration (minutes):</label>
-              <input type="number" name="duration" id="duration" placeholder="10" />
+              <input type="number" name="duration" id="duration" class="ui input" placeholder="10" />
             </div>
           </div>
+
           <div class="resistance-form d-none">
             <div class="exercise">
               <label for="name">Exercise Name:</label>
-              <input type="text" name="name" id="name" placeholder="Bench Press" />
+              <input type="text" name="name" id="name" class="ui input" placeholder="Bench Press" />
             </div>
             <div class="weight">
               <label for="weight">Weight (lbs):</label>
-              <input type="number" name="weight" id="weight" placeholder="200" />
+              <input type="number" name="weight" id="weight" class="ui input" placeholder="200" />
             </div>
             <div class="sets">
               <label for="sets">Sets:</label>
-              <input type="number" name="sets" id="sets" placeholder="4" />
+              <input type="number" name="sets" id="sets" class="ui input" placeholder="4" />
             </div>
             <div class="reps">
               <label for="reps">Reps:</label>
-              <input type="number" name="reps" id="reps" placeholder="10" />
+              <input type="number" name="reps" id="reps" class="ui input" placeholder="10" />
             </div>
             <div class="resistance-duration">
               <label for="resistance-duration">Duration (minutes):</label>
-              <input type="number" name="resistance-duration" id="resistance-duration" placeholder="10" />
+              <input type="number" name="resistance-duration" id="resistance-duration" class="ui input" placeholder="10" />
             </div>
           </div>
+
           <div class="buttons">
-            <button disabled class="huge ui blue button complete">
+            <button type="submit" class="huge ui blue button complete">
               Complete
             </button>
-            <button disabled class="huge ui positive button add-another">
+            <button type="button" class="huge ui positive button add-another" disabled>
               Add Exercise
             </button>
           </div>
@@ -79,9 +83,13 @@
       </div>
     </div>
   </div>
-  <div id="toast">
-    Workout Added Successfully!
+
+  <div id="toast" class="ui message">
+    <div class="content">
+      <p>Workout Added Successfully!</p>
+    </div>
   </div>
+
   <script src="/api.js"></script>
   <script src="/exercise.js"></script>
 </body>

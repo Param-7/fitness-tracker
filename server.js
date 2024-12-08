@@ -1,16 +1,13 @@
 const express = require("express");
+const session = require('express-session');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
 const axios = require('axios');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const Schema = mongoose.Schema;
-
-
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "login.html"));
-});
 
 app.get("/home", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
@@ -82,7 +79,16 @@ app.get("/api/recommendations", async (req, res) => {
   }
 });
 
-// MongoDB schema starts here =============================
+app.use(express.urlencoded({ extended: true }));
+app.use(session({
+    secret: 'mysecretkey',
+    resave: false,
+    saveUninitialized: false,
+}));
+app.set('view engine', 'ejs');
+
+app.use('/', authRoutes);
+
 const WorkoutSchema = new Schema({
   day: {
     type: Date,
@@ -117,9 +123,7 @@ const WorkoutSchema = new Schema({
 
 const Workout = mongoose.model('workout', WorkoutSchema);
 module.exports = { Workout };
-// MongoDB schema ends here =============================
 
-// Express middlewares starts here ======================
 app.use(logger('dev'));
 
 app.use(express.urlencoded({ extended: true }));
@@ -167,9 +171,7 @@ app.put('/api/workouts/:id', async (req, res) => {
   const result = await workout.save();
   res.json(result);
 });
-// Express middlewares ends here ======================
 
-// Server set up starts here ==========================
 const mongoParams = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -185,4 +187,3 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/project',
       console.log(`==> 🌎  Listening on port ${PORT}. Visit http://localhost:${PORT} in your browser.`);
     });
   });
-// Server set up endss here ===========================

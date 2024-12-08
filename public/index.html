@@ -11,40 +11,47 @@
 </head>
 
 <body>
-  <nav>
-    <a href="/">Fitness Tracker</a>
-    <a href="/stats">Dashboard</a>
-    <a href="/recommendations">Recommendations</a>
+
+  <nav class="ui menu">
+    <a href="/" class="item">Fitness Tracker</a>
+    <a href="/stats" class="item">Dashboard</a>
+    <a href="/recommendations" class="item">Recommendations</a>
   </nav>
+
   <div class="wrapper workout">
-    <header>
-      <h1>Fitness Tracker</h1>
+    <header class="ui container">
+      <h1 class="ui center aligned header">Fitness Tracker</h1>
     </header>
+
     <div class="ui container workout">
       <div class="ui raised card m-auto">
-        <div class="prev-workout">
-          <h3>Last Workout</h3>
-          <div>
+        <div class="content">
+          <div class="prev-workout">
+            <h3 class="ui header">Last Workout</h3>
             <div class="workout-stats"></div>
             <div class="buttons">
               <a id="continue-btn" href="/exercise?" class="huge ui blue button">Continue Workout</a>
               <a href="/exercise" class="huge positive ui button">New Workout</a>
             </div>
           </div>
-        </div>
-        <div class="new-workout">
-          <h3>Create Your First Workout</h3>
+          <div class="new-workout">
+            <h3 class="ui header">Create Your First Workout</h3>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div id="toast" class="ui message">
+    <div class="content">
+      <p>Workout Added Successfully!</p>
+    </div>
   </div>
-  <div id="toast">
-    Workout Added Successfully!
-  </div>
+
   <script src="/api.js"></script>
   <script src="/workout.js"></script>
   <script src="/index.js"></script>
 </body>
 
 </html>
+
